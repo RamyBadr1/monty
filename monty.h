@@ -1,14 +1,24 @@
-#ifndef __MONTY__H
-#define __MONTY__H
+#ifndef _MONTY_H_
+#define _MONTY_H_
 
 #include <stdio.h>
-#include <unistd.h>
-#include <string.h>
 #include <stdlib.h>
-#include <ctype.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <stdarg.h>
+#include <string.h>
+#include <ctype.h>
 
+typedef struct var
+{
+	int holder;
+	char check;
+}var_t;
 
+extern var_t variables;
+var_t variables;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -21,9 +31,9 @@
  */
 typedef struct stack_s
 {
-	int n;
-	struct stack_s *prev;
-	struct stack_s *next;
+        int n;
+        struct stack_s *prev;
+        struct stack_s *next;
 } stack_t;
 
 /**
@@ -36,52 +46,29 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+        char *opcode;
+        void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-extern stack_t *head;
+void _tokenizer(char *string, stack_t **stk, unsigned int linenum);
+void free_stk(stack_t **stk, unsigned int linenum);
+int check_digit(char *token);
+void _ops(char *token, stack_t **stk, unsigned int linenum);
+void push(stack_t **stk, unsigned int linenum);
+void pall(stack_t **stk, unsigned int linenum);
+void pint(stack_t **stk, unsigned int linenum);
+void pop(stack_t **stk, unsigned int linenum);
+void swap(stack_t **stk, unsigned int linenum);
+void add(stack_t **stk, unsigned int linenum);
+void nop(stack_t **stk, unsigned int linenum);
+void sub(stack_t **stk, unsigned int linenum);
+void _div(stack_t **stk, unsigned int linenum);
+void mul(stack_t **stk, unsigned int linenum);
+void mod(stack_t **stk, unsigned int linenum);
+void pchar(stack_t **stk, unsigned int linenum);
+void pstr(stack_t **stk, unsigned int linenum);
+void rotl(stack_t **stk, unsigned int linenum);
+void rotr(stack_t **stk, unsigned int linenum);
+void _queue(stack_t **stk, unsigned int linenum);
 
-/*Type for opcode functions*/
-typedef void (*op_func)(stack_t **, unsigned int);
-
-/*File operations*/
-void open_file(char *);
-void read_file(FILE *);
-int len_chars(FILE *);
-int interpret_line(char *, int, int);
-void find_func(char *, char *, int, int);
-
-/*Stack operations*/
-stack_t *create_node(int n);
-void free_nodes(void);
-void print_stack(stack_t **, unsigned int);
-void add_to_stack(stack_t **, unsigned int);
-void add_to_queue(stack_t **, unsigned int);
-
-void call_fun(op_func, char *, char *, int, int);
-void print_top(stack_t **, unsigned int);
-void pop_top(stack_t **, unsigned int);
-void nop(stack_t **, unsigned int);
-void swap_nodes(stack_t **, unsigned int);
-
-/*Math operations with nodes*/
-void add_nodes(stack_t **, unsigned int);
-void sub_nodes(stack_t **, unsigned int);
-void div_nodes(stack_t **, unsigned int);
-void mul_nodes(stack_t **, unsigned int);
-void mod_nodes(stack_t **, unsigned int);
-
-/*String operations*/
-void print_char(stack_t **, unsigned int);
-void print_str(stack_t **, unsigned int);
-void rotl(stack_t **, unsigned int);
-
-/*Error hanlding*/
-void err(int error_code, ...);
-void more_err(int error_code, ...);
-void string_err(int error_code, ...);
-void rotr(stack_t **, unsigned int);
-
-
-#endif /*__MONTY__H*/
+#endif
