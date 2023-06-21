@@ -1,6 +1,5 @@
-read 
+read
 >, >, <<
-
 convert from ascii
 +++++ +
 [
@@ -8,14 +7,12 @@ convert from ascii
  >----- ---
  <<-
 ]
-
 multiply
 >[
  >[>+>+<<-]
  >[<+>-]
  <<-
 ]
-
 separate numbers
 >[-]>+> >+++++ +++++<
 [
@@ -24,8 +21,6 @@ separate numbers
 ]
 <-
 <+++++ +++++>>>[-<<<->>>]<<<
-
-
 convert to ascii
 <+++++ +
 [
@@ -33,6 +28,5 @@ convert to ascii
  [+++++ +++>]
  <[<]>-
 ]
-
 print
 >>[.<<]<[<<]>>.
