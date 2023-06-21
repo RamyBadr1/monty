@@ -1,16 +1,4 @@
-/*
- * File: errors_2.c
- * Auth: Bennett Dixon
- *       Brennan D Baraban
- */
-
 #include "monty.h"
-
-int short_stack_error(unsigned int line_number, char *op);
-int div_error(unsigned int line_number);
-int pop_error(unsigned int line_number);
-int div_error(unsigned int line_number);
-int pchar_error(unsigned int line_number, char *message);
 
 /**
  * pop_error - Prints pop error messages for empty stacks.
