@@ -1,14 +1,4 @@
-/*
- * File: monty_funcs_3.c
- * Auth: Bennett Dixon
- *       Brennan D Baraban
- */
-
 #include "monty.h"
-
-void monty_nop(stack_t **stack, unsigned int line_number);
-void monty_pchar(stack_t **stack, unsigned int line_number);
-void monty_pstr(stack_t **stack, unsigned int line_number);
 
 /**
  * monty_nop - Does absolutely nothing for the Monty opcode 'nop'.
