@@ -10,8 +10,9 @@ char **op_toks = NULL;
  */
 int main(int argc, char **argv)
 {
-	FILE *fd = NULL;
-
+	FILE *fd = NULL;	
+	int exit_code = EXIT_SUCCESS;
+	
 	if (argc != 2)
 		return (usage_error());
 		
@@ -23,5 +24,5 @@ int main(int argc, char **argv)
 	exit_code = run_monty(fd);
 	fclose(fd);
 	
-	return (EXIT_SUCCESS);
+	return (exit_code);
 }
