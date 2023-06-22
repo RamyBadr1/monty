@@ -3,7 +3,6 @@
 /**
  * get_op_func - Matches an opcode with its corresponding function.
  * @opcode: The opcode to match.
- *
  * Return: A pointer to the corresponding function.
  */
 void (*get_op_func(char *opcode))(stack_t**, unsigned int)
