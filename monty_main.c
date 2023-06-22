@@ -10,7 +10,7 @@ char **op_toks = NULL;
  */
 int main(int argc, char **argv)
 {
-	FILE *f = NULL;
+	FILE *fd = NULL;
 
 	if (argc != 2)
 		return (usage_error());
