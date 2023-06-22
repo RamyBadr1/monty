@@ -110,7 +110,9 @@ int run_monty(FILE *script_fd)
 		op_toks = strtow(line, DELIMS);
 		if (op_toks == NULL)
 		{
-			is_empty_line(line, DELIMS) ? continue : free_stack(&stack);
+			if (is_empty_line(line, DELIMS))
+				continue;
+			free_stack(&stack);
 			return (malloc_error());
 		} else if (op_toks[0][0] == '#')
 		{ free_tokens();
