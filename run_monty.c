@@ -97,18 +97,15 @@ void (*get_op_func(char *opcode))(stack_t**, unsigned int)
  * Return: EXIT_SUCCESS on success, respective error code on failure.
  */
 int run_monty(FILE *script_fd)
-{
-	stack_t *stack = NULL;
-	char *line = NULL;
-	size_t len = 0, exit_status = EXIT_SUCCESS;
+{ stack_t *stack = NULL;
+	char *line = NULL, size_t len = 0, exit_status = EXIT_SUCCESS;
 	unsigned int line_number = 0, prev_tok_len = 0;
 	void (*op_func)(stack_t**, unsigned int);
 
 	if (init_stack(&stack) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	while (getline(&line, &len, script_fd) != -1)
-	{
-		line_number++;
+	{ line_number++;
 		op_toks = strtow(line, DELIMS);
 		if (op_toks == NULL)
 		{
@@ -117,13 +114,11 @@ int run_monty(FILE *script_fd)
 			free_stack(&stack);
 			return (malloc_error());
 		} else if (op_toks[0][0] == '#')
-		{
-			free_tokens();
+		{ free_tokens();
 			continue; }
 		op_func = get_op_func(op_toks[0]);
 		if (op_func == NULL)
-		{
-			free_stack(&stack);
+		{ free_stack(&stack);
 			exit_status = unknown_op_error(op_toks[0], line_number);
 			free_tokens();
 			break; }
@@ -140,8 +135,7 @@ int run_monty(FILE *script_fd)
 		free_tokens(); }
 	free_stack(&stack);
 	if (line && *line == 0)
-	{
-		free(line);
+	{ free(line);
 		return (malloc_error()); }
 	free(line);
 	return (exit_status); }
