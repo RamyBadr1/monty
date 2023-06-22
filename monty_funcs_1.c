@@ -1,5 +1,4 @@
 #include "monty.h"
-
 /**
  * monty_push - Pushes a value to a stack_t linked list.
  * @stack: A pointer to the top mode node of a stack_t linked list.
@@ -16,13 +15,11 @@ void monty_push(stack_t **stack, unsigned int line_number)
 		set_op_tok_error(malloc_error());
 		return;
 	}
-
 	if (op_toks[1] == NULL)
 	{
 		set_op_tok_error(no_int_error(line_number));
 		return;
 	}
-
 	for (i = 0; op_toks[1][i]; i++)
 	{
 		if (op_toks[1][i] == '-' && i == 0)
@@ -34,8 +31,7 @@ void monty_push(stack_t **stack, unsigned int line_number)
 		}
 	}
 	new->n = atoi(op_toks[1]);
-
-	if (check_mode(*stack) == STACK) /* STACK mode insert at front */
+	if (check_mode(*stack) == STACK)
 	{
 		tmp = (*stack)->next;
 		new->prev = *stack;
@@ -43,16 +39,14 @@ void monty_push(stack_t **stack, unsigned int line_number)
 		if (tmp)
 			tmp->prev = new;
 		(*stack)->next = new;
+		return;
 	}
-	else /* QUEUE mode insert at end */
-	{
-		tmp = *stack;
-		while (tmp->next)
-			tmp = tmp->next;
-		new->prev = tmp;
-		new->next = NULL;
-		tmp->next = new;
-	}
+	tmp = *stack;
+	while (tmp->next)
+		tmp = tmp->next;
+	new->prev = tmp;
+	new->next = NULL;
+	tmp->next = new;
 }
 
 /**
