@@ -1,20 +1,6 @@
 #include "monty.h"
 
 /**
- * token_arr_len - Gets the length of current op_toks.
- *
- * Return: Length of current op_toks (as int).
- */
-unsigned int token_arr_len(void)
-{
-	unsigned int toks_len = 0;
-
-	while (op_toks[toks_len])
-		toks_len++;
-	return (toks_len);
-}
-
-/**
  * is_empty_line - Checks if a line read from getline only contains delimiters.
  * @line: A pointer to the line.
  * @delims: A string of delimiter characters.
@@ -88,7 +74,8 @@ int run_monty(FILE *script_fd)
 	unsigned int line_number = 0, prev_tok_len = 0;
 	void (*op_func)(stack_t**, unsigned int);
 
-	init_stack(&stack) == EXIT_FAILURE && return (EXIT_FAILURE);
+	if (init_stack(&stack) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	while (getline(&line, &len, script_fd) != -1)
 	{ line_number++;
 		op_toks = strtow(line, DELIMS);
