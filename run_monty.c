@@ -9,10 +9,8 @@ void free_tokens(void)
 
 	if (op_toks == NULL)
 		return;
-
 	for (i = 0; op_toks[i]; i++)
 		free(op_toks[i]);
-
 	free(op_toks);
 }
 
@@ -52,7 +50,6 @@ int is_empty_line(char *line, char *delims)
 		if (delims[j] == '\0')
 			return (0);
 	}
-
 	return (1);
 }
 
@@ -91,14 +88,12 @@ void (*get_op_func(char *opcode))(stack_t**, unsigned int)
 		if (strcmp(opcode, op_funcs[i].opcode) == 0)
 			return (op_funcs[i].f);
 	}
-
 	return (NULL);
 }
 
 /**
  * run_monty - Primary function to execute a Monty bytecodes script.
  * @script_fd: File descriptor for an open Monty bytecodes script.
- *
  * Return: EXIT_SUCCESS on success, respective error code on failure.
  */
 int run_monty(FILE *script_fd)
@@ -111,7 +106,6 @@ int run_monty(FILE *script_fd)
 
 	if (init_stack(&stack) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-
 	while (getline(&line, &len, script_fd) != -1)
 	{
 		line_number++;
@@ -122,20 +116,17 @@ int run_monty(FILE *script_fd)
 				continue;
 			free_stack(&stack);
 			return (malloc_error());
-		}
-		else if (op_toks[0][0] == '#') /* comment line */
+		} else if (op_toks[0][0] == '#')
 		{
 			free_tokens();
-			continue;
-		}
+			continue; }
 		op_func = get_op_func(op_toks[0]);
 		if (op_func == NULL)
 		{
 			free_stack(&stack);
 			exit_status = unknown_op_error(op_toks[0], line_number);
 			free_tokens();
-			break;
-		}
+			break; }
 		prev_tok_len = token_arr_len();
 		op_func(&stack, line_number);
 		if (token_arr_len() != prev_tok_len)
@@ -145,18 +136,12 @@ int run_monty(FILE *script_fd)
 			else
 				exit_status = EXIT_FAILURE;
 			free_tokens();
-			break;
-		}
-		free_tokens();
-	}
+			break; }
+		free_tokens(); }
 	free_stack(&stack);
-
 	if (line && *line == 0)
 	{
 		free(line);
-		return (malloc_error());
-	}
-
+		return (malloc_error()); }
 	free(line);
-	return (exit_status);
-}
+	return (exit_status); }
