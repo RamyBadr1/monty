@@ -98,7 +98,8 @@ void (*get_op_func(char *opcode))(stack_t**, unsigned int)
  */
 int run_monty(FILE *script_fd)
 { stack_t *stack = NULL;
-	char *line = NULL, size_t len = 0, exit_status = EXIT_SUCCESS;
+	char *line = NULL;
+	size_t len = 0, exit_status = EXIT_SUCCESS;
 	unsigned int line_number = 0, prev_tok_len = 0;
 	void (*op_func)(stack_t**, unsigned int);
 
@@ -109,9 +110,7 @@ int run_monty(FILE *script_fd)
 		op_toks = strtow(line, DELIMS);
 		if (op_toks == NULL)
 		{
-			if (is_empty_line(line, DELIMS))
-				continue;
-			free_stack(&stack);
+			is_empty_line(line, DELIMS) ? continue : free_stack(&stack);
 			return (malloc_error());
 		} else if (op_toks[0][0] == '#')
 		{ free_tokens();
